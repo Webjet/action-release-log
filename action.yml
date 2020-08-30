@@ -35,7 +35,9 @@ runs:
         export INPUT_REPO=${{ inputs.repo }}
         export INPUT_RELEASE_ID=${{ inputs.release-id }}        
 
+        chmod +x $GITHUB_ACTION_PATH/download.sh
         $GITHUB_ACTION_PATH/download.sh
+        chmod +x $GITHUB_ACTION_PATH/upload.sh
         $GITHUB_ACTION_PATH/upload.sh
       shell: bash
 
