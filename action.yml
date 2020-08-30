@@ -1,20 +1,41 @@
-name: Add TSA LOG
+name: 'Add Build Log to Release'
+description: 'Add Build Log to Release'
 
+inputs:
+  company:
+    description: 'Company'
+    required: true
+  repo:
+    description: 'repo'
+    required: true
+  release-id:
+    description: 'release id'
+    required: true
+  file-name:
+    description: 'log file name'
+    required: true
+    default: 'log.txt'
+  github-token:
+    description: 'Github token'
+    required: true
+    default: ${{ github.token }}  
+  job-id:
+    description: 'job id'
+    required: true
 
-on:
-  release:
-    types:
-    - published
+runs:
+  using: "composite"
+  steps: 
+    - run: |
+        export INPUT_RUNID=${{ github.run_id }}
+        export INPUT_JOBID=${{ inputs.job-id }}
+        export INPUT_FILENAME=${{ inputs.file-name }}
+        export INPUT_GITHUB_TOKEN=${{ inputs.github-token }}
+        export INPUT_COMPANY=${{ inputs.company }}
+        export INPUT_REPO=${{ inputs.repo }}
+        export INPUT_RELEASE_ID=${{ inputs.release-id }}        
 
-
-jobs:
-  build:
-    runs-on: [self-hosted, X64, Windows]
-     
-    steps:
-
-    - name: Buid image source
-      run: |
-        $TAG_NAME="${{ github.event.release.tag_name }}"
-        echo $TAG_NAME
+        $GITHUB_ACTION_PATH/download.sh
+        $GITHUB_ACTION_PATH/upload.sh
+      shell: bash
 
