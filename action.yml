@@ -1,0 +1,20 @@
+name: Add TSA LOG
+
+
+on:
+  release:
+    types:
+    - published
+
+
+jobs:
+  build:
+    runs-on: [self-hosted, X64, Windows]
+     
+    steps:
+
+    - name: Buid image source
+      run: |
+        $TAG_NAME="${{ github.event.release.tag_name }}"
+        echo $TAG_NAME
+
