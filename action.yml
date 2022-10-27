@@ -19,16 +19,17 @@ inputs:
     description: 'Github token'
     required: true
     default: ${{ github.token }}  
-  job-id:
-    description: 'job id'
+  job-name:
+    description: 'job name'
     required: true
+
 
 runs:
   using: "composite"
   steps: 
     - run: |
         export INPUT_RUNID=${{ github.run_id }}
-        export INPUT_JOBID=${{ inputs.job-id }}
+        export INPUT_JOB_NAME=${{ inputs.job-name }}
         export INPUT_FILENAME=${{ inputs.file-name }}
         export INPUT_GITHUB_TOKEN=${{ inputs.github-token }}
         export INPUT_COMPANY=${{ inputs.company }}
