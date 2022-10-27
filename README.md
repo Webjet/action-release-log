@@ -8,7 +8,7 @@ Download Github Action log and upload to release
   - uses: Webjet/action-release-log@v1
     with:
       release-id: ${{ steps.release.outputs.id }}
-      job-id: ${{ steps.build-job.outputs.job_id }}
+      job-name: build
       company: 'Webjet'
       repo: 'TSA'
 ```
